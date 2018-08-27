@@ -13,12 +13,14 @@ If you need a little added functionality, check out [phpinit.com](https://phpini
    * [The Singleton](#the-singleton)
    * [Internal Linking](#internal-linking)
    * [Front-end](#front-end)
+       * [Error Notifications](#error-notifications)
 
-1. [**In Depth**](#in-depth)
+1. [**Included Documents**](#included-documents)
 
    * [controllers/index.php](#c-index)
    * [css/styles.css](#styles)
-   * [js/index.js](#js)
+   * [js/extra.js](#js-extra)
+   * [js/index.js](#js-index)
    * [media/ico.ico](#ico)
    * [models/connection.php](#connection)
    * [models/crud.php](#crud)
@@ -27,15 +29,20 @@ If you need a little added functionality, check out [phpinit.com](https://phpini
    * [resources/singleton.php](#singleton)
    * [views/index.php](#v-index)
    * [index.php](#index)
+   * [robots.txt](#robots)
 
 ### MVC and its Logic
-What we want is to separate the view, what the user sees and interacts with, and the logic that manipulate the data for that view on a layer behind - The Controller. Models are there for extended functionality. Models represent a datamodel or a real-life object. You will use the controller to load the needed models and set the required data for the view.
+What we want is to separate the view, what the user sees and interacts with, and the logic that manipulate the data for that view on a layer behind.
+
+We use the Controllers to load models and set the data values for the view - The layer behind the view.
+
+Models are there for extended functionality. Models represent a datamodel or a real-life object.
 
 Roughly spoken; Your view holds the html elements, the controller gets and sets the data values for the view and it will load the models required to reach that goal.
 
 ### Quick Introduction
 ##### Views and Controllers
-The project has a models, views and controllers folder. Individual pages for your site, such as index, about, contact and so forth, should be created as documents in the views folder, along with a controller with the same name in the controllers folder.
+The project has a `models/`, `views/` and `controllers/` folder. Individual pages for your site, such as index, about, contact and so forth, should be created as documents in the views folder, along with a controller with the same name in the controllers folder.
 
 For example, if we were to have a blog page on our website, create a file in both views and controllers folder named `blog.php` - Use the index controller as an empty controller example.
 
@@ -45,15 +52,32 @@ The project already holds an empty view and controller for the index. You can se
 The controller accepts a Crud model (create, read, update & delete) for database communication. Get an overview how this crud works on [phpinit.com](https://phpinit.com/#Crud). In order for the crud to work, you first have to define the sever/database credentials in `resources/credentials.php`.
 
 ##### The Singleton
-A singleton is one of the first objects that is loaded. The singleton will look at the URL and load the appropriate view and its associated controller. It will look at the URLs query string, i.e. example.com **?blog**, and see if it has a document by the name of `blog.php` in views and controllers.
+A singleton is one of the first objects that is loaded (and in this case, one of the most crucial).
+
+The singleton will look at the URL and load the appropriate view and its associated controller.
+
+It will look at the URLs query string, i.e. example.com **?blog**, and see if it has a document by the name of `blog.php` in views and controllers.
 
 ##### Internal Linking
-As noted above, the singleton reads the URL and tries to match any of its queries with documents in the views and controllers folders. Say you have a `blog.php` document in each the views and controllers folder, the singleton will load those documents if it reads `example.com?blog`, so your internal linking should be `<a href="?blog"> Blog </a>`. You can have as many queries you like; `<a href="?blog&id=2" ...>`.
+As noted above, the singleton reads the URL and tries to match any of its queries with documents in the views and controllers folders.
+
+Say you have a `blog.php` document in each the views and controllers folder, the singleton will load those documents if it reads `example.com?blog`, so your internal linking should be `<a href="?blog"> Blog </a>`.
+
+You can have as many queries you like; `<a href="?blog&id=2" ...>`.
 
 ##### Front-end
-Though this project is created mainly with the back-end in mind, you do get just a few front-end features too. There is a css document with a few browser resets, there's a way of displaying errors somewhat nicely and if you place javascript files in the js folder and give them the same name as the view and controller document, i.e, `blog.js`, they will be loaded automatically for their corresponding view.
+Though this project is created mainly with the back-end in mind, you do get just a few front-end features too.
 
-### In Depth
+There is a css document with a few browser resets, there's a way of displaying errors somewhat nicely and if you place javascript files in the js folder and give them the same name as the view and controller document, i.e, `blog.js`, they will be loaded automatically for their corresponding view.
+
+###### Error Notifications
+This project has a way of displaying errors to the user in a somewhat nicely way. It will place itself as a red bar on the top of your site and is close-able.
+
+If the jQuery library is available, then it will close the bar in a sliding manner. If it's not available, then it will close by just removing the container.
+
+To display a notification in the error bar, set a SESSION with the name `error`. I.e. `$_SESSION['error'] = 'An error occurred';`
+
+### Included Documents
 Further explanation of each individual document in this project and the logic behind.
 
 ##### `controllers/index.php` <a name="c-index"></a>
@@ -64,7 +88,10 @@ This controller accepts a Crud model, from `models/crud.php`, as a parameter. Yo
 ##### `css/styles` <a name="styles"></a>
 Just a couple of browser resets and the classes for the error container - Which covers the top with a red, close-able alert bar.
 
-##### `js/index.js` <a name="js"></a>
+##### `js/extra.js` <a name="js-extra"></a>
+A javascript document that will always be loaded. You can use this document for js functions that should be available throughout your whole site. By default it holds a function for closing the top-bar error.
+
+##### `js/index.js` <a name="js-index"></a>
 An empty javascript document, that will be loaded alongside the `index.php` from the views folder. Create javascript files with the same name as your views to have them loaded exclusively for the individual views.
 
 ##### `media/ico.ico` <a name="ico"></a>
@@ -103,12 +130,16 @@ echo 'A paragraph with 5 spaces, '.$singleton->spaces(5).' because you\'ll never
 ```
 
 ##### `views/index.php` <a name="v-index"></a>
-This is the view for the client. This specific document is the default landing page of your website. It is empty and you place your HTML in this document, and other view documents.
+This is the view for the client. This specific document is the default landing page of your website. It is empty and you place your sites cotent (text, html elements etc) in this document and other view documents.
 
 ##### `index.php` <a name="index"></a>
 This is your typical HTML document (html, head, body). It;
 
 * reads the headers from the `resources/meta.php` document,
 * checks and displays any errors set in the singleton,
-* fetches and load the view document
+* fetches and load the view document,
+* loads the `extra.js` documents
 * and checks if there's a javascript document associated with the view.
+
+##### `robots.txt` <a name="robots"></a>
+An empty robots.txt document with the most common search engine crawlers.

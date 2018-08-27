@@ -1,6 +1,7 @@
 <?php
 
 class Credentials {
+
     private $host = '';
     private $user = '';
     private $pass = '';
@@ -12,10 +13,10 @@ class Credentials {
      *                     array of values if set.]
      */
     public function get(){
-        if (   $this->host == ''
-            || $this->user == ''
-            || $this->pass == ''
-            || $this->db   == '')
+        if (   empty($this->host)
+            || empty($this->user)
+            || empty($this->pass)
+            || empty($this->db))
             return false;
 
         return array('host' => $this->host,

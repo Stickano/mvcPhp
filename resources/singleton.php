@@ -37,8 +37,9 @@ final class Singleton {
 
             self::setConn();
             self::setDb();
-            self::getView();
-            self::getController();
+            self::setView();
+            self::setController();
+            self::checkErrors();
         }
 
         return self::$instance;
@@ -47,7 +48,7 @@ final class Singleton {
     /**
      * This will determine which page(view) to load
      */
-    private static function getView() {
+    private static function setView() {
 
         # Fetch all documents in view/
         $pages = array();
@@ -73,13 +74,12 @@ final class Singleton {
     /**
      * This will load the appropriate controller
      */
-    public static function getController() {
+    public static function setController() {
         self::$controller = null;
         if (is_file('controllers/'.self::$page.'.php')) {
             require_once('controllers/'.self::$page.'.php');
             $controller       = ucfirst(self::$page).'Controller';
-            self::$controller = new $controller(self::getConn(),
-                                                self::getDb());
+            self::$controller = new $controller(self::getDb());
         }
     }
 
@@ -109,7 +109,7 @@ final class Singleton {
      * Returns the connection
      * @return object Connection class
      */
-    public static function getConn() {
+    private static function getConn() {
         return self::$conn;
     }
 
@@ -117,7 +117,7 @@ final class Singleton {
      * Return the CRUD methods
      * @return object Class holding the CRUD methods
      */
-    public static function getDb() {
+    private static function getDb() {
         return self::$crud;
     }
 
@@ -127,8 +127,8 @@ final class Singleton {
      */
     # TODO: Will change to several errors handling
     private static function checkErrors() {
-        if(isset($_SESSION['errir'])) {
-            self::$error =  $_SESSION['errir'];
+        if(isset($_SESSION['error'])) {
+            self::$error =  $_SESSION['error'];
             unset($_SESSION['error']);
         }
     }

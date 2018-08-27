@@ -43,22 +43,26 @@ table, td {
 	border-collapse: collapse;
 }
 
-.errorContainer {
-	position        : absolute;
-	width           : 100%;
-	padding         : 10px;
+#errorContainer {
 	background-color: #d9534f;
-	text-align      : center;
 	color           : whitesmoke;
+	padding         : 10px;
+	position        : fixed;
+	text-align      : center;
+	width           : 100%;
+	z-index         : 99;
 }
 
-.closeError {
-	background: none;
-	border    : none;
-	color     : whitesmoke;
-	margin-top: 3px;
-	cursor    : pointer;
-	outline   : none;
+#closeError {
+	background  : none;
+	border      : none;
+	color       : whitesmoke;
+	cursor      : pointer;
+	margin-right: 25px;
+	margin-top  : 3px;
+	outline     : none;
+	position    : relative;
+	z-index     : 999;
 }
 
 .clearfix {

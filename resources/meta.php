@@ -29,18 +29,14 @@
 
     # CDNs.
     # Font Awesome
-    // echo'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-    //         integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-    //         crossorigin="anonymous">';
+    // echo'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">';
 
     # VueJs
     # Development version, includes helpful console warnings
-    // <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    // echo'<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>';
     # Production version, optimized for size and speed
-    // <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    // echo'<script src="https://cdn.jsdelivr.net/npm/vue"></script>';
 
     # Jquery
-    // echo'<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    //         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    //         crossorigin="anonymous"></script>';
+    // echo'<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>';
 ?>
